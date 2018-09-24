@@ -20,39 +20,39 @@ class FilterMapReduceTest: XCTestCase{
             (value: Int) -> Int in
             return value * 2
         })
-        XCTAssertEqual(mappedArray, expectedArray, "Each elemet inside the mappedArray should be twice the element inside the original Array")
+        XCTAssertEqual(mappedArray, expectedArray, "Each element inside the mappedArray should be twice the element inside the original Array")
     }
     
     func testFilteringNumbersGreaterThanAnotherNumber(){
         let expectedArray = [6,15,28,1,9]
         let originalArray = [6,15,28,38,42,1,9,36]
-        let mappedArray = originalArray.filter {    //let mappedArray = originalArray.filter{$0 <= 30}
+        let filteredArray = originalArray.filter {    //let mappedArray = originalArray.filter{$0 <= 30}
             (value: Int) -> Bool in
             return (value <= 30)
         }
-        XCTAssertEqual(mappedArray, expectedArray, "Each elemet inside the mappedArray should be Less than 30")
+        XCTAssertEqual(filteredArray, expectedArray, "Each element inside the mappedArray should be Less than 30")
     }
     
     func testReducingAnArrayWithAnOperation(){
         let expectedValue = 12
         let originalArray = [1,2,3]
-        let mappedArray = originalArray.reduce((0)) {   //let mappedArray = originalArray.reduce(0) {$0 + ($1*2)}
+        let reducedArray = originalArray.reduce((0)) {   //let mappedArray = originalArray.reduce(0) {$0 + ($1*2)}
             (current: Int, value: Int) in
             current + (value * 2)
         }
-        XCTAssertEqual(mappedArray, expectedValue, "The elemet inside mappedArray should be the summation of each element mutiplied by 2")
+        XCTAssertEqual(reducedArray, expectedValue, "The element inside mappedArray should be the summation of each element mutiplied by 2")
     }
     
     func testFlateningAnArrayOfArraysIntoOneArray(){
-        let expectedArray = ["perroflatened","loboflatened","gatoflatened","tigreflatened", "gallinaflatened"]
+        let expectedArray = ["perro flattened","lobo flattened","gato flattened","tigre flattened", "gallina flattened"]
         let originalArray = [["perro","lobo"],["gato","tigre"],["gallina"]]
-        let mappedArray = originalArray.flatMap {   //let mappedArray = originalArray.flatMap{$0.map{$0 + "flatened"}}
+        let flattenedArray = originalArray.flatMap {   //let mappedArray = originalArray.flatMap{$0.map{$0 + "flatened"}}
             (array: [String]) in
             return array.map({ (value: String) -> String in
-                return value + "flatened"
+                return value + " flattened"
             })
         }
-        XCTAssertEqual(mappedArray, expectedArray, "MappedArray should be only one array with Strings")
+        XCTAssertEqual(flattenedArray, expectedArray, "MappedArray should be only one array with Strings")
     }
     
     func testFilteringNilElementsWithFlatMap(){
@@ -83,11 +83,11 @@ class FilterMapReduceTest: XCTestCase{
     func testFilteringNilElementsWithCompactMap(){
         let expectedArray = ["perro", "gato", "chorizo"]
         let originalArray = ["perro", nil, "gato", nil, nil, "chorizo"]
-        let mappedArray = originalArray.compactMap {    //let mappedArray = originalArray.compactMap{$0}
+        let compactedArray = originalArray.compactMap {    //let mappedArray = originalArray.compactMap{$0}
             (value: String?) -> String? in
             return value
         }
-        XCTAssertEqual(mappedArray, expectedArray, "The mappedArray Should not have nil Elements")
+        XCTAssertEqual(compactedArray, expectedArray, "The mappedArray Should not have nil Elements")
     }
 }
 
