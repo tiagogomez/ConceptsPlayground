@@ -30,7 +30,7 @@ class FilterMapReduceTest: XCTestCase{
             (value: Int) -> Bool in
             return (value <= 30)
         }
-        XCTAssertEqual(filteredArray, expectedArray, "Each element inside the mappedArray should be Less than 30")
+        XCTAssertEqual(filteredArray, expectedArray, "Each element inside the filteredArray should be Less than 30")
     }
     
     func testReducingAnArrayWithAnOperation(){
@@ -40,7 +40,7 @@ class FilterMapReduceTest: XCTestCase{
             (current: Int, value: Int) in
             current + (value * 2)
         }
-        XCTAssertEqual(reducedArray, expectedValue, "The element inside mappedArray should be the summation of each element mutiplied by 2")
+        XCTAssertEqual(reducedArray, expectedValue, "The element inside reducedArray should be the summation of each element mutiplied by 2")
     }
     
     func testFlateningAnArrayOfArraysIntoOneArray(){
@@ -52,7 +52,7 @@ class FilterMapReduceTest: XCTestCase{
                 return value + " flattened"
             })
         }
-        XCTAssertEqual(flattenedArray, expectedArray, "MappedArray should be only one array with Strings")
+        XCTAssertEqual(flattenedArray, expectedArray, "FlattenedArray should be only one array with Strings")
     }
     
     func testFilteringNilElementsWithFlatMap(){
@@ -77,7 +77,7 @@ class FilterMapReduceTest: XCTestCase{
             }
         }
         XCTAssertEqual(mappedArray, unExpectedArray, "The mappedArray Should have strings and nil Elements")
-        XCTAssertEqual(flatMappedArray, expectedArray, "The mappedArray Should not have nil Elements")
+        XCTAssertEqual(flatMappedArray, expectedArray, "The flatMappedArray Should not have nil Elements")
     }
     
     func testFilteringNilElementsWithCompactMap(){
@@ -87,7 +87,7 @@ class FilterMapReduceTest: XCTestCase{
             (value: String?) -> String? in
             return value
         }
-        XCTAssertEqual(compactedArray, expectedArray, "The mappedArray Should not have nil Elements")
+        XCTAssertEqual(compactedArray, expectedArray, "The compactedArray Should not have nil Elements")
     }
 }
 
