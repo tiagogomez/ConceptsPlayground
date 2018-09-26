@@ -5,20 +5,33 @@ import XCTest
 
 class StaticTestClass {
     let instanceProperty = "Instancia"
-    static let classProperty = "Estatico"
+    static let classProperty = "Estático"
+    static private var counter = 0
     
     func instanceFunction() -> String{
         print("soy función de instancia")
         return "Instancia"
     }
     
-    static func classFunction() -> String{
+    class func classFunction() -> String{
         print("soy función de clase")
-        return "Estatico"
+        return "Estático"
     }
+    
+    func getCounter() -> Int{
+        return type(of: self).counter
+    }
+    
+    func updateCounter() {
+        type(of: self).counter += 1
+    }
+    
+//    class func getInstanceProperty() -> String {      Should not Work 
+//        return instanceProperty
+//    }
 }
 
-class StaticKeyword: XCTestCase{
+class StaticKeywordTests: XCTestCase{
     
     func testInstanceVar(){
         let instancedClass = StaticTestClass()
@@ -26,7 +39,7 @@ class StaticKeyword: XCTestCase{
     }
     
     func testClassVar(){
-        XCTAssertEqual(StaticTestClass.classProperty, "Estatico", "You should acces directly on the type")
+        XCTAssertEqual(StaticTestClass.classProperty, "Estático", "You should access directly on the type")
     }
     
     func testInstanceMethod(){
@@ -35,7 +48,22 @@ class StaticKeyword: XCTestCase{
     }
     
     func testClassMethod(){
-        XCTAssertEqual(StaticTestClass.classFunction(), "Estatico", "You should acces directly on the type")
+        XCTAssertEqual(StaticTestClass.classFunction(), "Estático", "You should access directly on the type")
+    }
+    
+    func testClassVarFromAnIntancedClass(){
+        let instancedClass = StaticTestClass()
+        let classVar = type(of: instancedClass).classProperty
+        XCTAssertEqual(classVar, "Estático", "You should access directly on the type")
+    }
+    
+    func testClassVariableUpdateIsTheSameAcrossInstances(){
+        let instancedClass1 = StaticTestClass()
+        let instancedClass2 = StaticTestClass()
+        instancedClass1.updateCounter()
+        instancedClass2.updateCounter()
+        XCTAssertEqual(instancedClass1.getCounter(), 2)
+        XCTAssertEqual(instancedClass2.getCounter(), 2)
     }
 }
-StaticKeyword.defaultTestSuite.run()
+StaticKeywordTests.defaultTestSuite.run()
